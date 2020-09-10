@@ -4,13 +4,15 @@
 
 int main()
 {
-    t_getline getline = start_getline("CMakeLists.txt", 5);
+    t_getline getline = start_getline("CMakeLists.txt", 10);
     char *line;
-    getline_next(&getline, &line);
-    printf("%s\n", line);
-    free(line);
-    getline_next(&getline, &line);
-    printf("%s\n", line);
+    while(getline_next(&getline, &line, 0))
+	{
+		printf("%s\n", line);
+		free(line);
+	}
+	if(getline_next(&getline, &line, 1))
+	printf("%s\n", line);
     stop_getline(&getline);
     return 0;
 }
