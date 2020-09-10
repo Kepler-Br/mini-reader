@@ -8,7 +8,7 @@ typedef struct s_getline
     char *buffer;
 } t_getline;
 
-int getline_next(t_getline *getline, char **line)
+int getline_next(t_getline *getline, char **line);
 t_getline start_getline(char *filename, unsigned buffer_size);
 void stop_getline(t_getline *get_line);
 
