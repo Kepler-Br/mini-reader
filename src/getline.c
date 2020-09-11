@@ -24,7 +24,7 @@ void		first_read(t_getline *getline, char **symbol, int *read_count)
 void		continue_read(t_getline *gnl, char **symbol, char **line,
 						int *r_cnt)
 {
-	while (*r_cnt != 0 || *symbol == NULL || **symbol != '\n')
+	while (*r_cnt != 0 || *symbol != NULL && **symbol != '\n')
 	{
 		gnl->prev_line_size = ft_strlen(*line);
 		*line = ft_realloc(*line, gnl->prev_line_size, *r_cnt + 1);
@@ -33,14 +33,17 @@ void		continue_read(t_getline *gnl, char **symbol, char **line,
 		ft_memcpy(&(*line)[gnl->prev_line_size], gnl->buffer, *r_cnt + 1);
 		(*line)[gnl->prev_line_size + *r_cnt] = '\0';
 		if (*symbol == NULL || **symbol != '\n')
-			*r_cnt = read(gnl->file_descriptor, gnl->buffer, gnl->buffer_size);
+		{
+            *r_cnt = read(gnl->file_descriptor, gnl->buffer, gnl->buffer_size);
+            gnl->buffer[*r_cnt] = '\0';
+        }
 		else
 		{
 			ft_memmove((void *)gnl->buffer, *symbol + 1,
 					ft_strchr(*symbol, '\0') - *symbol);
 			break ;
 		}
-		if (r_cnt == 0)
+		if (*r_cnt == 0)
 		{
 			gnl->should_stop = 1;
 			break ;
