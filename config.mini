@@ -1,0 +1,4 @@
+framebuffer_divider: int = 2
+resolution_x: int = 800
+resolution_y: str = 600
+fuckingshit = asd
